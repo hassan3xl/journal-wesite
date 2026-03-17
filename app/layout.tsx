@@ -20,6 +20,8 @@ export const metadata: Metadata = {
 
 import Providers from "../lib/providers/QueryProviders";
 import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
+import InfoSidebar from "@/components/info-sidebar";
 
 export default function RootLayout({
   children,
@@ -29,11 +31,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased selection:bg-blue-100 dark:selection:bg-blue-900 bg-gray-50/50 dark:bg-gray-950`}
       >
         <Providers>
-          <Navbar />
-          {children}
+          <div className="flex flex-col min-h-screen">
+            <Navbar />
+
+            {/* Main Content Area */}
+            <div className="flex-1 flex flex-col lg:flex-row max-w-[1500px] mx-auto w-full gap-8 px-4 py-8 md:px-6">
+              {/* Content Area */}
+              <div className="flex-1 order-1 min-w-0">{children}</div>
+
+              {/* Info Sidebar */}
+              <div className="order-2 mt-4 lg:order-2 shrink-0">
+                <InfoSidebar />
+              </div>
+            </div>
+
+            <Footer />
+          </div>
         </Providers>
       </body>
     </html>

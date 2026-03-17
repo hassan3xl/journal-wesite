@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 import prisma from "@/lib/prisma";
 import ArticlesClient from "../lib/clients/ArticlesClient";
+import Image from "next/image";
 
 export default async function Home() {
   const queryClient = new QueryClient();
@@ -23,25 +24,46 @@ export default async function Home() {
   });
 
   return (
-    <main className="min-h-screen p-8 sm:p-12 md:p-16 bg-gradient-to-br from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
-      <div className="max-w-7xl mx-auto space-y-12">
-        <div className="flex flex-col items-center text-center space-y-4 pt-10">
-          <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80 mb-2">
-            Beta Release 1.0
-          </div>
-          <h1 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400 tracking-tight sm:text-6xl text-balance">
-            University Journal Repository
-          </h1>
-          <p className="max-w-[700px] text-lg text-gray-600 dark:text-gray-400 text-balance sm:text-xl">
-            A premium digital platform for publishing, peer-reviewing, and
-            discovering cutting-edge academic research.
+    <div className="space-y-12 py-4">
+      <div className="relative rounded-lg overflow-hidden shadow-sm border border-gray-200 dark:border-gray-800">
+        <Image
+          src="/banner.png"
+          alt="Journal Cover"
+          width={1200}
+          height={400}
+          className="w-full h-auto object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-8">
+          <h2 className="text-2xl md:text-3xl font-bold text-white">
+            Journal of the Nigerian Association of Teachers of English
+          </h2>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center text-center space-y-4">
+        <p className="max-w-[700px] text-lg text-gray-600 dark:text-gray-400 text-balance sm:text-xl font-semibold">
+          ISSN: 3026-8656 (PRINT) | 3026-8699 (ONLINE)
+        </p>
+        <div className="max-w-[900px] p-8 rounded-lg bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-sm">
+          <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed italic">
+            "The Journal of the Nigerian Association of Teachers of English
+            (JNATE) is a peer-reviewed academic journal published bi-annually by
+            the Nigerian Association of Teachers of English (NATE). It serves as
+            a platform for the dissemination of research, scholarly articles,
+            and best practices in the field of English language education,
+            literature, and applied linguistics."
           </p>
         </div>
+      </div>
 
+      <div className="space-y-6">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 border-b pb-2">
+          Recent Articles
+        </h3>
         <HydrationBoundary state={dehydrate(queryClient)}>
           <ArticlesClient />
         </HydrationBoundary>
       </div>
-    </main>
+    </div>
   );
 }
